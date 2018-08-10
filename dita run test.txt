@@ -1,0 +1,1 @@
+C:\dita-ot-3.1.1\bin>dita --input=C:/Users/india/Desktop/ditamaps/mobile-phone/mobilePhone.ditamap --format=html5 --output=C:/Users/india/Desktop --logfile=C:/Users/india/Desktop/dofhdif.txt
