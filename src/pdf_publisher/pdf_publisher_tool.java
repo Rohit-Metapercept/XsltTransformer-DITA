@@ -119,13 +119,57 @@ public class pdf_publisher_tool {
 		
 		
 		//Transform button function
-		
+		JButton btnOpen = new JButton("Open");
+		btnOpen.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Dita Files","ditamap");
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setAcceptAllFileFilterUsed(false);
+                fileChooser.setDialogTitle("Choose");
+				fileChooser.setFileFilter(filter);
+				 
+		        // For Directory
+		        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+  
+		        int rVal  = fileChooser.showOpenDialog(null);
+		        if (rVal == JFileChooser.APPROVE_OPTION) {
+		          textFieldChoose.setText(fileChooser.getSelectedFile().toString());
+		     
+                    String str="";
+                    
+		          final JFrame msgframe= new JFrame();
+		          msgframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		          str= textFieldChoose.getText();
+		          JOptionPane.showMessageDialog(textFieldChoose, str);
+		          getClass().getClassLoader();
+		          str= textFieldChoose.getText();    //step1: get the content of the text field
+		          try {
+		        	  XPathFactory factory = XPathFactory.newInstance();
+		        	    XPath xPath = factory.newXPath();
+
+		        	    Attr result = (Attr) xPath.evaluate("//project/property/target/ant/property[1]/location[0]", new InputSource(
+		        	        new FileReader("C://dita-ot-3.1.1/plugins/org.dita.pdf2/build.xml")), XPathConstants.NODE);
+		        	    System.out.println(result.getValue());
+
+		        	    result.setValue(str);
+
+		        }catch (IOException | XPathExpressionException IoException) {
+		            IoException.printStackTrace();
+			        
+		        }
+			}}
+		});
 		JButton btnTransform = new JButton("Transform");
 		btnTransform.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					String inputFile = "C:\\Users/india/Desktop/ditamaps/mobile-phone/mobilePhone.ditamap";
+					String str = null;
+					str= textFieldChoose.getText();
+					String inputFile = str;
 					String outputFile = "C:\\Users/india/Desktop";
 					String logFile = "C:\\Users/india/Desktop/dofhdif.txt";
 
@@ -273,49 +317,7 @@ public class pdf_publisher_tool {
 		lblNewLabel.setBounds(10, 0, 533, 78);
 		frmPdfPublisher.getContentPane().add(lblNewLabel);
 		
-		JButton btnOpen = new JButton("Open");
-		btnOpen.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Dita Files","ditamap");
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setAcceptAllFileFilterUsed(false);
-                fileChooser.setDialogTitle("Choose");
-				fileChooser.setFileFilter(filter);
-				 
-		        // For Directory
-		        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-  
-		        int rVal  = fileChooser.showOpenDialog(null);
-		        if (rVal == JFileChooser.APPROVE_OPTION) {
-		          textFieldChoose.setText(fileChooser.getSelectedFile().toString());
-		     
-                    String str="";
-                    
-		          final JFrame msgframe= new JFrame();
-		          msgframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		          str= textFieldChoose.getText();
-		          JOptionPane.showMessageDialog(textFieldChoose, str);
-		          getClass().getClassLoader();
-		          str= textFieldChoose.getText();    //step1: get the content of the text field
-		          try {
-		        	  XPathFactory factory = XPathFactory.newInstance();
-		        	    XPath xPath = factory.newXPath();
-
-		        	    Attr result = (Attr) xPath.evaluate("//project/property/target/ant/property[1]/location[0]", new InputSource(
-		        	        new FileReader("C://dita-ot-3.1.1/plugins/org.dita.pdf2/build.xml")), XPathConstants.NODE);
-		        	    System.out.println(result.getValue());
-
-		        	    result.setValue(str);
-
-		        }catch (IOException | XPathExpressionException IoException) {
-		            IoException.printStackTrace();
-			        
-		        }
-			}}
-		});
+		
 		btnOpen.setBounds(461, 131, 73, 21);
 		frmPdfPublisher.getContentPane().add(btnOpen);
 		
